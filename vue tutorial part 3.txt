@@ -1,0 +1,1478 @@
+vue is eigenlijk best leuk om te leren
+
+er is in NL geen betere manier om je tijd door te komen dan te programmeren. je kan hier niet pimpen. 
+en het mist de verwelking en gezelligheid.
+
+voor een mediocre at best mens zoals de meesten en zoals ik, komt het er toch op aan om genoeg geld te hebben voor je pensioen
+zodat je kan gaan en staan waar je wil, en het is ook simpelweg het bindmiddel tussen jou en anderen.
+dus na fitness en leuke dingen doen is het geld wat het belangrijkste is in het leven.
+
+genieten van de momenten die je samen hebt, geen tijd voor serieus of geruzie. je moet er het leukste van maken.
+en heel veel lol is mogelijk, naar het buitenland gaan hoeft niet alleen maar op zijn meest klinisch.
+ook je tijd alleen kan je heel gevuld besteden. prog is zoiets of afro fit. leven erin blazen. energie geven en krijgen.
+er is nog genoeg te doen in NL, zoveel dat het in geen 100 levens te vervullen is.
+mijn boeken lezen, series kijken, hangen met voitec. ook dat kan leuk zijn als je het zo ziet dat het glas half vol is.
+niet het makkelijkste doen wat je al gewend bent. (naar merlijn, of browsen)
+geloof erin, dare to dream.
+don't do what you must, be cool and do what you want.
+
+
+programmeren is zelfs leuker, geeft je een beter zinvoller gevoel dan browsen. zelfde als in de gym zijn. het beginnen is moeilijk vooral.
+Puur het begin is moeilijk. en als het echt langdurig te moeilijk lijkt om te beginnen, staar je dan niet kapot op 1 probleem.
+begin met een ander project, ga een boek lezen of iets. doe iets praktischer zoals het programmeren van een game ipv een site.
+
+
+
+
+
+1:49:59
+vueX en Vue-router.
+Dit is dus wat ik ook al met express heb  gedaan. ach misschien is het leuk om opnieuw te doen en te vergelijken. 
+CRUD operations & state management. ook is het weer een oefening voor frontend. dus waarom niet? (s.m. is wel nieuw trouwens)
+
+om te beginnen maken we de folder via cmd met 
+vue create vuex-tut-adopt-pets
+Nu gaan we manually selecten features. just use arrow keys en spacebar to select. enter pas op het allerlaatst als klaar.
+babel en linter staan automatisch al geselecteerd, voor wat we gaan doen hoeven we  alleen router, vuex en saas toe te voegen (css proc)
+verder kunnen we de test features leeg laten, en ook typescript en PWA progressive web app kunnen we leeg laten.
+Nu gaan we de begin setting instellen, die kan je altijd later nog veranderen.
+history mode for router? yes
+css pre processor: sass-scss with node-sass
+linter: es-lint standard config
+lint on save
+config placement in package.json or individually? individually.
+save this preset with a name? could do.
+
+now we can open the folder and then open that in vscode.
+cd vuex-tut-adopt-pets
+code .
+
+we still have index.html in public map.
+in src map we still have the main.js which now also contains our store settings for vuex and router configuration.
+1:52:59 the routes in view
+now we also have a views tab (next to a components tab) which contains home.vue and about.vue
+these are the two routes. these are the pages which are connecting your app to the router. better put:
+the views are the pages on a different route you can check them out in the browser. like localhost:8080 for home and localhost:8080/about
+in the components folder are the seperate pieces that may be used on one page or multiple pages. we can link to them from the views.
+objects like helloworld.vue, which is on the main page right now, or if we go back to the quiz app, questionBox.vue 
+(if you remember we had app.vue as our main page, no other pages, and most of the content from app.vue came from all the components)
+we can check the home.vue page in the browser and then in vscode, and see it's importing helloworld.vue and displays it to the DOM
+import HelloWorld from '@/components/HelloWorld.vue'
+<template>
+  <div class="home">
+    <img alt="Vue logo" src="../assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  </div>
+</template>
+1:53:47 directory structure
+there are some slight differences to the demo, while her main.js file is in a folder with router.js and store.js, 
+router.js is in a seperate folder for me, called router. the file is called index.js
+the same goes for store. in a seperate folder called store, filename index.js.
+so the backbone are each in a seperate folder, the serverside shit, while the views are all in one view folder.
+also the content of both files is inside a method, so the layout is mixed up a bit.
+so, don't switch these new files up: the router.js and store.js, (main files like main.js & app.vue) and the views home.vue and about.vue.
+compare this to our quiz app which had in the main folder main.js and app.vue, and all side components in a sub folder. 
+1:54:16 starting up
+we've changed router.vue or router/index.js up a little.
+we put the import on top that's easier. we don't need the special way of inputting the about component in the routes array. 
+store is a vuex global object where we can put any functions or data that we wanna use in multiple parts of our app.
+next we create in the view folder a cats.vue component (from within vscode) plus a dogs.vue and pet.vue 
+and delete the about component. we leave the home component alone.
+[EDIT: WHEN YOU CREATE A NEW FILE BE MINDFUL OF SETTING THE INDENTATION TO 2 SPACES! otherwise you gonna have to remove all errors!!]
+<template>
+    <div>
+        Cats etc.
+    </div>
+</template>
+Now hook them up to the router (hook the components up to the router in router/index.js 1:54:42
+by filling in Cats, Dogs, Pet instead of about in:
+import Cats from '../views/Cats.vue' (Note that she is using only one dot ./ but for me only ../ works)
+(.. is volgens mij 2 folders back, en dan vooruit naar views en cats.vue)
+and
+  {
+    path: '/cats', 	// hier de / niet vergeten zoals ik had gedaan en 100x overlooked had
+    name: 'cats',
+    component: Cats
+  }, Hierbij is het belangrijk dat alleen de component een hoofdletter heeft. path altijd zonder en name maakt niet uit.
+ik heb de files toen ik ze creeerde in vscode zonder hoodletter gedaan dus dat moet je overal terugzien.
+Alleen als het dus als object OID in de code voorkomt is het dus met hoofdletter.
+bovendien moest er nog een NewLine (enter)  na de </template> in elke component (bizar): een linting vereiste.
+path: = de route die je hem wil geven
+name: = zij geeft het gewoon de naam van de file, dus Home met hoofdletter en cats zonder. is verder minst belangrijk.
+component: = dat wat je geimporteerd hebt (met de link erbij) en op het beeld wil weergeven in de browser
+
+Now we only need to update the app.vue file to link to the pages we created. !EDIT so the links (and the nav) are on the app.vue nothing else,
+*the rest of the home page were from the component helloworld.vue that we deleted in the next section down here.**weet niet wat ik hiermee bedoel?*
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/cats">Cats</router-link> |
+      <router-link to="/Dogs">dogs</router-link> |
+      <router-link to="/Pet">pet</router-link>
+>>>1:57:07 EDIT: hier was cats <p> gewoon nog te zien
+Now that we have links to the pages on the nav above every view (in app.vue), we wanna delete the useless text on the home view. (in home.vue) 
+get rid of the vue boilerplate by clearing the home component(/view): by removing the img and helloWorld component from it:
+remove it from the template, and the import and export default (in the script).
+we can also delete the whole helloWorld component.
+we don't need it, we can always get some more layout/content from the bootstrap website more specific to our needs.
+1:57:37
+import vue-bootstrap. to start creating content for our views.
+first ctrl+c to stop the server running, then install bootstrap-vue. go to website,
+-find these install commands:
+1= npm i, 2= import and use in main.js 3= import the css in main.js:
+-To get started, use yarn or npm to get the latest version of Vue.js, BootstrapVue and Bootstrap v4:
+-Then, register BootstrapVue in your app entry point
+-And import Bootstrap and BootstrapVue css files:
+and copy them into cmd or main.js respectively.
+npm i bootstrap-vue
+then put this in the main .js file:
+import BootstrapVue from 'bootstrap-vue'
+and underneath the imports:
+Vue.use(BootstrapVue)
+then right underneath the bootstrapVue import put:
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+1:58:50 using some of the bootstrap lay out styling components.
+tables
+(check it out first and see which one you would have picked... i think table for an array of objects)
+she picks the very first one based on the looks. and wow, she copies only the <b-table striped hover :items="items" />
+she copies that into cats.vue (for starters) in the template in a div, and writes the script part herself 
+(which is actually not that difficult as you can see on the bootstrap template, even it's unnecessary to look up more specific tables.)
+you just have to know it consists of script, export default, data, return an object...
+That's important to note, a table or any other thing that you put on your site consists only of that one line for the template, and the
+following script part with the data, the data which in our case we're going to get from an object in a seperate file.
+<script>
+	export default {
+		data() {
+			return {
+			}
+		}
+	}
+</script>
+and then you need an object of cats, which she already has, which she puts in cats.js and dogs.js, which she puts in a newly created
+data folder in src. (made inside vscode)
+let's see if I can find somthing similar on the web like with the api website, or in the github via the link, or else just practise typing :)
+Found it in the GO TO FILE section of her github: https://github.com/gwenf/vue-adopt-pets/find/master then cats.js and dogs.js
+2:00:51
+now to use this cats.js, which by the way is just an export default with an unnamed array of dog objects,
+we just need to import it in the cats.vue only.
+so remember that, we can just put something like an array into a different file with a name.js and we can refer to it by importing 
+it and then using it. with "import cats from '@/data/cats'" we gave it the address and a var name for us to mention it,
+then we use it by putting it in the data object and calling it cats with "cats: cats"
+now to use this cats.js, go back to cats.vue and import cats from '@/data/cats'
+@ stands for the source directory so that we don't have to use ../../
+and then in the return {} put cats: cats to take in the imported data and give it a name for use in our app (shorthand is just cats,
+since we're going to use the same name for it, it will automatically figure we mean the imported cats.
+2:01:48 now to display the table right away all we have to do is change in the template
+<b-table striped hover :items="items" /> into <b-table striped hover :items="cats" /> 
+to display our cats array items.
+
+***
+hij doet het niet
+oplossing:
+Heb het cats object in cats.vue gecheckt of er wel een waarde in zit, met 
+console.log(cats == null)
+door het onderaan in de script sectie te zetten. het returned een false, dus dan is het niet het geval dat beide kanten null zijn,
+dus moet cats wel een waarde bevatten volgens deze test. ik had gedacht dat ie leeg zou zijn dus nu heb ik er nog niks aan,
+maar ben in ieder geval blij dat het me is gelukt wat JS code op de juiste plek en runnent te hebben gekregen, nu kan ik dus console.loggen.
+then I checked the console and found it was giving me another error message! this is most likely the problem.
+>console
+Non-nested routes must include a leading slash character. Fix the following routes: about, cats, dogs, pet.
+JA! opgelost. Heb een slash toegevoegd voor alle views die in een subpath staan in de index.js van routes.
+Het was dus geen probleem in de app.vue (waar de routerlinks overigens wel al met / stonden)
+geen probleem in de main.js (natuurlijk niet daar kom je bijna nooit)
+ook niet in de cats.vue of cats.js, maar dus in de router index.js!
+Hij geeft nu alles weer, de hele tabellen enzo voor elke view. 
+maar dus inclusief de tests die ik erin had geplaatst:
+in cats de <p> boven de tabel, de about die ik geundelete had...
+(hierdoor was ik erachter dat ook views zonder tabel niet werkten, en alles in de hele view niet, niet alleen de tabel)
+<template>
+    <div>
+      <p>difgerfewfi</p>
+
+    }
+  }
+}
+console.log(cats == null)
+</script>
+
+oplospoging 1:
+hij doet het niet
+moet een verwijzingsfout zijn hij krijgt de data niet binnen.
+de fout zal niet in router>index.js zitten of store>index.js want die deden het al daar staat alleen de info die de pagina's weergeeft
+onafhankelijk van wat de inhoud van de pagina's is. erin staat welke pagina bij welke link hoort.
+er moet iets fout gaan bij het importeren van cats.js into cats.vue. of misschien wel in de cats.js zelf.
+> 1 fout was ik had de css niet in de main.js code geimporteerd. wel in de aantekeningen, maar niet in de code. 
+les: doe dus altijd eerst de code voor je de aantekeningen doet.
+* zelfs pet wordt nu  niet weergegeven, eerst nog wel. dat duid dan toch erop dat er iets voorheen fout gaat. misschien even 
+cats en dogs verwijderen?
+=btw i'm surprised we don't need a for to go through the array to read the objects one by one in the table.
+-zowiezo bizar dat er in de app.vue nog helemaal geen script staat, en vroeger importeerden we toch juist eerst in app.vue en daarna verder?
+-btw zelfs <p> geeft ie nu niet meer weer in cats. dus dat wordt ook al niet geladen, verder weet ie dat ie een object moet importen
+maar die krijgt ie niet.
+hij komt dus zelfs niet bij pet.vue. de routing is goed, maar de vue files vindt ie niet.
+-misschien is het wel een te snel willen weergeven probleem zoals we hadden in deel 1, moeten we een object vol check instoppen.
+zowoiezo kunnen we console.log even proberen van het object cats.
+-hoe zit het met params? en hoe zit het met ../ in express?
+OK, het heeft niet te maken met de @/ vervangen voor ../
+OK, about teruggeplaatst, die geeft ook niks weer. dus het heeft niet te maken met de cats.js object wss.
+(about.vue was slechts een boilerplate template div, 2x terug in de router gezet, en 1x de links in app.vue.)
+maar het is dan wel raar dat ik wel een array terugkrijg in de browser, maar niet de object.
+bizar nu zie ik in mijn terminal dat mijn server vast loopt dat was eerder niet
+dat zie je in de terminal, maar ook in de browser doordat verversen niet lukt.
+en hij loopt idd vast bij een bootstrap-vue esm component. ik dacht net dat het als het niks anders is mischien het importeren
+van bootstrap zelf was? omdat het een weergave probleem betreft. oh nee nu doet ie het weer, mogelijk was het omdat ik meerdere
+elements in template had geplaatst, bleek een linting error.
+console.log router??iig denk ik wel dat je kan zeggen dat het door cats.vue of js komt. daar zal wel een verkeerde formulatie instaan.
+goeie vraag: waar zet je console.log in een vua app, die vercomponented is en ook nog eens servert?
+var myVar=10;
+console.log("MyVar" in window); //true if in global scope (window) but we're not using that now.
+console.log(window.myVar); //10
+misschien het akkelijkst aan een schermactie geplakt zoals popup dan kan ie in de html
+een if ervoor, if no/empty object then no list.
+en even een console.log op de juiste plek.
+***
+
+even nog about eruit halen. handelingen:
+in index.js 2x weghalen:
+import About from '../views/About.vue'
+en 
+ {
+    path: '/about',
+    name: 'About',
+    component: About
+  },
+in app.vue
+<router-link to="/cats">About</router-link>
+en de about.vue zelf weg halen in de views tab.
+
+en kijken of in het filmpje er niet ook slashes voor stonden. > die stonden er dus wel, stom! maar ja had ook al dat probleem 
+met hoofdletters gehad en de verschillende locaties van de router file.
+
+2:01:48
+summary
+cats.vue and main.js
+so importing the data object cats.js can just be done in the cats.vue only, we don't need to import it anywhere else. also cats.vue doesn't
+import anything else. The other thing we do is sticking in the template (of in this case a bootstrap B-TABLE) which was already imported in
+the main.js with the importing and then using of bootstrap and bootstrap vue. Main.js also has the start of our new vue.
+app.vue
+in the app.vue then, we have the routes for the links in the template, and the css styling for the nav in the <style> tag.
+vue and routes/index.js and app.vue
+everything a .vue or index.js file does, everything it adds to the code is put in an export default so other components can use it,
+everything it takes is first imported. so for example the index.js from routes exports only one object named router, which is then used
+in app.vue template. it imports a whole lot (Vue itself and VueRouter and all the different vue's)
+to create the router object where we specify the location of the files on the disk (the .vue's)
+and the location where we want them to be routed. in that same way what the views do is put in that single page content, so ofcourse
+they don't need to import anything other the building blocks which are the data, and the already imported layout structure..
+in short, everything is compartmentalised in vue in modules. they import and export only what they need to do,
+app.vue is the main page, while main.js mainly imports all the main dependencies.
+/summary
+
+So we do the same for dogs, we change the <b-table striped hover :items="items"></b-table> into items="dogs" to populate the table with 
+our dogs array (of objects) and import dogs and export  our created data object dogs.
+
+2:02:34 Now let's add a b-container in app.vue, so all our views are inside a container with a white border.
+by wrapping <b-container> <router-view/> </b-container> around router view. Now we know what that stands for too! it changes the view 
+of any .vue content. a one app.vue mention does it for all the views simultaniously.
+2:02:57 add in a page title above the tables with an h1 in every .vue
+
+2:04:18 Making the single pet page using vue router. using dynamic routing.
+in router: change the path for pet into pets and id > path: '/pets/:id',
+get rid of the link in app.vue, we don't need to reach it via a link on the main page (rather via the table items, or address bar)
+let's now go to the bootstrap doc to see how we can change each item in the array into a link.
+2:06:10 for this we apparently need a formatter callback. it allows you to pass in a template with a dynamic href
+      <template v-slot:cell(name)="data">
+        <!-- `data.value` is the value after formatted by the Formatter -->
+        <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
+      </template>
+we paste this inside the cats.vue template b-table.
+Now we instantly have all different cat items show up as links, and if we click it the route in the address bar shows the #name
+but doesn't show anything on it's personal page, it keeps showing the table page we were on.
+2:06:37 full explanaition about slots. i think it basically means that bootstrap keeps a set of slots for you.
+now we edit the copied code. we change the anchor href's into <router-link> (not necessary just for consistency), and we change the route.
+      <template v-slot:cell(name)="data">
+        <router-link:to="`pets/${data.value}`">{{ data.value }}</router-link>
+      </template>
+it didn't work because of the consistency change. changed the href back and it worked.
+<a :href="`pets/${data.value}`">{{ data.value }}</a>
+Now it also changes to the pet page view instead of just going to the route without a change in view.
+2:08:38
+now in the addressbar it shows it by pet name, we want to change that to show it by id.
+change ${data.value} to ${data.index}. this is the first one not the one in the double moustach which is for what you view on screen,
+the first one is for what you see in the addressbar.
+
+2:09:15 STATE
+If we wanna populate the pets page with the individual pets, what we could do is import the pets array like we did in cats.vue 
+into the pet.vue component, (which wouldn't be much different from what we did before to populate the tables, as an extra we would
+need to get the index number off from the router variable and then combine that with the array in this component.)
+But instead we're gonna use state. we'll put all pets in state instead of pets.vue and then pull all individual pets from state.
+so now it's not only usable in pets.vue but anywhere.
+2:09:43 state
+open the index.js in the store folder.
+In a big project we would now make a store folder in src (resources) and make 3 files: actions.js, mutations.js, state.js.
+then copy the index.js in the store folder to the store folder in the src folder, open that file, and import the 3 other files.
+(ps in my version of vue it already was in a seperate folder so i just put everything there.)
+import state from './state'	<clearly this is pointing to the state FILE in THIS folder (1 dot, no '/' behind '/state/')
+import mutations from './mutations'
+import actions from './actions'
+and then we can take out the objects in the export default of store.js/index.js in store folder,
+because we're not writing the objects here, we're importing them from the .js files.
+so we can get rid of the objects in index.js in store folder:
+export default new Vuex.Store({
+  state: {
+  },
+  mutations: {
+  },
+  actions: {
+  },
+  modules: {
+  }
+}) 
+just make it into:
+export default new Vuex.Store({
+  state,
+  mutations,
+  actions,
+  modules
+}) 
+now we put an object in each of the three .js files we made into this folder, an empty one for now. (it needs an export default in front)
+export default {
+
+}
+and since we're busy with state,  we're gonna need the cats.js and dogs.js files (arrays) there so we put an import above the export.
+the .js files are in the data folder one folder above the store folder so now we use 2 dots instead of one.
+import cats from '../data/cats'
+import dogs from '../data/dogs'
+and in its export default { cats, dogs } we use these arrays seperately as 2 arrays.
+
+2:12:20 replacing the directly loaded cats.js object with the state loaded cats.js object.
+What we can do now is load the arrays from the state always, so we can change how we load them in cats.vue and dogs.vue to load them
+from the state, instead of directly from the file. (i think this can be handy for when we want to use them real time with changes)
+in cats.vue we change: 
+import cats from '@/data/cats'
+into:
+import { mapState } from 'vuex' // importing the mapState function for use only. no need to import an individual component like state.js. later we just point to the required array by passing the array name as an argument to the function
+for that we need an extra computed object (with a mapState() function taking cats as an argument):
+export default {
+  data () {
+    return {
+      cats: cats // the 2nd cats points to the one imported. 1st is data var.
+    }
+  },
+  computed: {
+    ...mapState(['cats']) // we map (take) the state we imported from store/state.js using the imported mapState function so we can use the array dogs in dogs.vue like we would use a data object. and we're spreading the different arguments into the fuction parameters.
+  }
+
+}
+hierna hebben we het hele data object niet meer nodig, want we halen cats nu vanuit computed.
+
+uitleg tussendoor:
+https://medium.com/@luke_smaki/javascript-es6-spread-operator-and-rest-parameters-b3e89d112281
+the spread operator '...' in front of an array takes all the elements out of an array so ...[1,2,3] would become 1,2,3
+you can also use it inside another array or to fill the parameters of a function with the contents of an array.
+mySum(...someArray)		// works!
+this used to be done by using the apply function on the function's parameters
+mySum.apply(null, someArray);
+
+what the spread operator actually does is it takes the array of variables and spreads them into the function's parameters as arguments.
+het verschil tussen arguments en parameters: arguments zijn de ingevulde parameters.
+
+een voorbeeld van een hele simpele functie:
+function mySum (num1, num2, num3) {		//parameters
+	console.log(num1, num2, num3)		//arguments
+}
+ps, dit had ook wel zonder functie gekunt, maar het kan dus ook met. een functie kan gewoon een handigheid zijn die je gebruikt.
+maar eigenlijk heeft een functie ervan maken pas echt zin als je in de console.log(num1 + num2 + num3) doet.
+ps, values in arrays and objects are called: array[element]		object{property: "value"} object{key: "value"} object{entry}
+
+einde uitleg. nu weer verder.
+
+
+we kunnen nu we de cats array vanuit de state halen, de cats array in data is niet meer nodig dus die kan weg.
+we gebruiken nu de state voor het weergeven van de page view cats met cats.vue. voor de routing. en straks gaan we hem gebruiken voor 
+het weergeven van de pets details. ik heb het cats object in data gewoon weggecomment.
+export default {
+  /*
+  data () {
+    return {
+      cats: cats // the 2nd cats points to the one imported. 1st is data var.
+    }
+  },
+  */
+  computed: {
+    ...mapState( ['cats'])  // instead of simply pointing to the cats from data, we're simply pointing to the state.js with the mapState function. hier halen we de array cats uit de state niet uit de data hier in cats.vue. zoals we hier zien zijn de arguments voor array de verpreidde elements ('spread'  ...)  uit de cats array. wat dus de verschillende objects zijn. IIG kunnen we nu de data object weg commenten die hebben we nu even niet meer nodig.de extra [] lijkt me op dit moment overbodig want cats is al een array, maar ach, misschien is het omdat op deze manier zorgen we dat hij de objects uitpakt met spread ... en niet de array cats zelf?? en is het niet zelfs zo dat we eerst een array uitpakken met ... en daarna weer erinstoppen met []?
+  }
+}
+
+errorcheck routine: 
+check the browser console (for error messages), 
+check the terminal (see if the server's running, linting errors) 
+then check the vue devtools (loading errors) and vuex tools.
+in my case the problem is with the server, linting errors.
+2:14:00 vuex: to view base state switch from vue components to vuex, refresh the base state by pressing on the left paragraph.
+the base state just shows us the 2 arrays as they are in the state.js (mapState).
+
+2:14:50 do the same thing we did for cats.vue, for dogs.vue. use the state to load the array.
+summary
+we just changed where we get the dogs array from in dogs.vue, after we've already made the dogs array available in state.
+so in dogs.vue just change the import and computed to mapState,
+in state.js we already have imported dogs array dogs.js from the data directory and called it dogs,
+and we've already imported the state.js into the store/index.js, and referred to them in it's export.
+/summary
+
+2:15:25 make the dogs table clickable, and make it change route and page.
+first we copy what we did for cats.vue in the template, into dogs.vue 
+as we still didn't have any clickable items in the dogs array.
+<template v-slot:cell(name)="data">
+<a :href="`pets/${data.index}`">{{ data.value }}</a>
+</template>
+(this is the line of code that makes it so that every item is clickable, {1} sends you to a new route, and {{2}}
+when you go to a new route, you actually get to see a different page, still empty page with "pet"). 
+{1} you pass the link you want it to go to which should be defined in the routes, which is partly made up out of data 
+which link you clicked: the index. routes simply points to the dogs.vue component. so here is the most important part 
+where a click becomes an action of direction.
+{{2}} out of the link you clicked we also get the value from the array which corresponds to the index and make it available 
+for show on page further defined in dogs.vue template, which are all the elements: all pet objects.
+(we're just continuing what we started at 2:04:18 "Making the single pet page using vue router, using dynamic routing.")
+
+also we need to change the router/index.js file under pet (not under dogs or cats) to add :species/ ! 
+>hmmm nu heb ik <a :href="`pets/${data.index}`">{{ data.value }}</a> veranderd in 
+<a :href="`pets/cats/${data.index}`">{{ data.value }}</a> en <a :href="`pets/dogs/${data.index}`">{{ data.value }}</a>
+en nu showed ie de pet page niet meer. moet het dan $.. zijn ofzo? nee.
+aha! in de router/index.js moet je :species/ toevoegen! anders heeft de router geen reactie die verwacht daar niks.
+  {
+    path: '/pets/:species/:id',
+    name: 'pet',
+    component: Pet
+  }
+dus ik ging al naar de juiste route toe, maar hij kon nog niet de pet page erbij vinden omdat ik eigenlijk in cats.vue
+simpelweg een link had opgegeven waar ie naar toe moest, maar in de routes stond die link nog helemaal niet naar een pagina verwezen!
+(de juiste pagina stond nog onder path: '/pets/:id')
+
+2:16:35 adding data to the pets component, and using the route data we already have.
+& start of:
+how to figure out if it's a cat or a dog in the pets component.
+as you remember we have 2 different arrays, cats and dogs, in the state.
+we wanna use the state to now show an individual entry, not the whole array.
+
+nu in de pet component:
+we change the <p> pet </p> into a double mustache that takes from the state. (actually it was just in the div it didn't have <p>'s)
+and actually it doesn't take from the state yet, it takes from the route data.
+   {{ $route.params.species}}
+   {{ $route.params.id}} <!--these show us that we have access to species and id here. from the route params.-->
+the result in the browser is "dogs 3" on the page when you go to the pets route.
+now to take from the state, let's copy the script tag from cats.vue (because pets is it's own view, it'll need it's own script)
+and modify it.
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState([
+      'cats',
+      'dogs'
+      ])
+
+PS if we'd check the page out now, it wouldn't show any difference, pets.vue would still show cats 1, because just adding the script
+and so the code, doesn't mean we're actually using that code within the template. our template still has the route params only.
+now if we would add the b-table with item="dogs" (which we just do to see what happens) it would show up:
+  <b-table striped hover :items="dogs">   </b-table> <!-- populate table with dogs array -->
+this one is a table populated with dogs, but they're not yet links. if we'd want the links, we would add this in between
+    <template v-slot:cell(name)="data"> <!-- make items clickable links-->
+      <a :href="`pets/dogs/${data.index}`">{{ data.value }}</a> <!-- click changes route and page-->
+    </template>
+but we want neither ofcourse.
+end of PS.
+
+2:17:26 we just add dogs to the computed: ...mapState(['cats','dogs']) of pet.vue. so that we can use both arrays here.
+alternatively we could do the same thing by not using ...mapState but adding a function cats()
+cats() {
+	return this.$store.state.cats
+}
+however it's easier to just use the mapState method.
+
+with the copy of the script tag from cats.vue, which has imported the array and COULD show the table, we can now edit that script so that it 
+shows one element in the array, not all of them.
+2:18:18 now we write a quick function so we can take from both arrays.
+we make a method object containing a pet function
+},
+  methods: {
+    pet () { // method using the params from template to get the right animal from data array.
+      // 2 ways to refer to arrays: this.cats, or this['cats'] which is what we do below
+      const animal = this[this.$route.params.species][this.$route.params.id]
+      return animal
+      // const animal = [cat or dog to get the right array] [id number to get the right pet]
+      // this only points to a defined var in this component, so probably species and id, and??? these 2 arrays are combined to form dogs 1 for example.
+      // line 1: now we have all animals together, all we have to do now is choose which animal to display. cat or dog
+      // line 2: now we just use the index (not id) which we already have from the click and the {{}}. if we were searching by id, things would be harder. we would have to search through the array and find the correct id. since we're using index (because array?) we'll just pass that, the index will be route.params.id
+    }
+  }
+}
+</script>
+
+As you can see we can take from both the Cats and Dogs array.
+The ffunction makes route dependend, where we just filled in the specific id of the cat or dog that
+we wanted into the array and named it animal.
+
+now we can change the template to show not the params, but the part that we want from the pet() function for example the name.
+this will show that our function works.
+<template>
+  <div>
+    <!-- obsolete, we changed this to animal.name which we derived from the state and method here.
+   {{ $route.params.species}}
+   {{ $route.params.id}} --these show us that we have access to species and id here. from the route params.
+     -->
+   {{ pet().name }} <!-- not animal.name, we return the value of an object that is returned from a function-->
+  </div>
+</template>
+
+2:21:12 an alternative thing we can do, if you think pet().name is messy, is replace that for animal.name, by
+-making an empty data object called animal
+-making the method into a lifecycle mounted function, and instead of returning animal, add a line of code that makes 
+this.animal into animal (this.animal = animal) (this.animal is the data object animal)so that now you access in the template {{animal.name}}
+i think this.animal as told from mounted means take the data object animal and make that (=) into the const animal we just created. 
+apparently lifecycle goes over data as they are both animal vars.
+and when to use 'this' and when not to i still don't know for sure. 
+it's strange that we need it for the route params as well *while for sure is you never need it in the template* but not for data)
+it's another interesting use of the lifecycle functions. i should learn more about lifecycle functions, check that back, 
+and by the way, also .this, and arrow functions.
+
+we also used the lifecycle function at 53:28, (literally a function: explicitely stated function() behind mounted),
+this was literally at the beginning of the app where we merely received the questions we would perform so many tricks with later.
+there we used it in app.vue for quiz to fetch the quiz api and then put it in an array in data,
+now we're gonna use it (without .then followups) and in pet.vue instead of in the main app.vue. the difference between normal functions
+and lifecycle functions is they're called automatically when its COMPONENT is created or mounted or destroyed.
+
+so what's the use of a lifecycle function in pet.vue you ask? the function was already working properly so why do we even need
+a lifecycle function? well i think the whole reason is so that we can populate our animal object in data. if we wouldn't 
+use the mounted function, it would still be empty when we want to load data and then use it in the template.
+I don't think in the end it matters THAT much, as our old function would load it not long after the mounting is completed,
+but i guess this is just a fail safe, to make sure data is populated right after mounting. 
+so perhaps all data objects need to be filled at the start or it would give an error.
+
+-instead of
+  methods: {
+    pet () { *the function*
+-we put
+mounted() { *the function*
+-but instead of returning const animal, we put it in an existing data object 
+this.animal = animal
+-the new existing data object with an empty animal object:
+  data () {
+    return {
+      animal: {}
+    }
+  },
+-now we can print, instead of {{pet().name}}:
+    {{ animal.name }}
+    {{ animal.age }}
+    {{ animal.breed }}
+-2:22:46 let's add in something to denote whether it's a cat or a dog, so we put $route.params.species back in.
+also we put in some text descriptions.
+    <h1>{{ animal.name }} ({{$route.params.species}})</h1>
+    <p>Age: {{ animal.age }} years old</p>
+    <p>Breed: {{ animal.breed }}</p>
+As you can see we can take from both the Cats and Dogs array.
+This is because of our function pet() at 2:18:18, which makes route dependend, where we just filled in the specific id of the cat or dog
+we wanted into the array and named it animal.
+
+
+summary
+2:09:43
+-doe het hele vuex store gebeuren, om een state aan te maken.
+-make 4 .js files in store folder, with empty objects. one of the files is state.js. in which we put the import of 
+cats.js and dogs.js from their directories, and the export default of {cats, dogs} 
+-import the state.js into the store/index.js, and refer to them in it's export.
+-implement it in cats.vue: replace the directly loaded cats.js object with the state loaded cats.js object: 
+by importing the mapState and creating a computed object with a mapState function taking cats as an argument.
+import { mapState } from 'vuex' (instead of import cats from '@/data/cats')
+computed: {    ...mapState(['cats']) hierbij gebruiken we de ... spread operator.
+we gebruiken nu de state in cats.vue ipv direct cats.js te laden in cats.vue, voor het weergeven van de page view cats door cats.vue. 
+
+summary
+2:14:50 do the same thing we did for cats.vue, for dogs.vue. use the state to load the dogs array:
+- make the dogs array available in state:
+in state.js import dogs array dogs.js from the data directory and call it dogs,
+and import the state.js into the store/index.js, and export them (refer to them in it's export).
+- change where we get the dogs array from in dogs.vue, (from state instead of dogs.js) .
+so in dogs.vue just change the import and computed to mapState.
+/summary
+
+summary
+Making the single pet page using vue router, using dynamic routing:
+2:15:25
+- in dogs.vue make the dogs table clickable, and make it change route and page.
+<template v-slot:cell(name)="data">
+<a :href="`pets/${data.index}`">{{ data.value }}</a>
+</template>
+- also we need to change the router/index.js file under pet (not under dogs or cats) to add :species/ 
+(any second subfolder with : in front, it will be populated with the specific index nr data.)
+want je moet niet alleen in cats.vue simpelweg een link opgeven waar ie naar toe moet, 
+maar ook in de routes/index.js instellen welke pagina daarbij hoort!
+2:16:35
+- using the route params in pet.vue that we got from the link in cats.vue or dogs.vue to first just print them,
+   {{ $route.params.species}}
+   {{ $route.params.id}} 
+then later just use them in a function to get the right data from mapState:
+- first to get the whole mapState, copy the script tag from pets.vue or dogs.vue with its import and export mapState 
+so that we can use the state in pet.vue as well
+- add dogs to the computed: ...mapState(['cats','dogs']) of pet.vue. so that we can use both arrays in there.
+- make the pet() method using the params from template to get the right animal from data array. in pet.vue.
+with the copy of the script tag from cats.vue, which has imported the array and COULD show the table, we can now edit that script so that it 
+shows one element in the array, not all of them.
+- in pet.vue template, show not the params, but the part that we want from the pet function.
+- we can also make a lifecycle mounted function/const animal, instead of a method pet.vue
+/summary
+
+extra explanation
+
+i should learn more about lifecycle functions, check that back, 
+and by the way, also .this, and arrow functions.
+
+arrow functions
+// Traditional Function
+function (a){
+  return a + 100;
+}
+// Arrow Function Break Down
+// 1. Remove the word "function" and place arrow between the argument and opening body bracket
+(a) => {
+  return a + 100;
+}
+// 2. Remove the body brackets and word "return" -- the return is implied.
+(a) => a + 100;
+// 3. Remove the argument parentheses (unless you have multiple arguments or none) (a, b) ()
+a => a + 100;
+//4. Likewise, if the body requires additional lines of processing, you'll need to re-introduce brackets PLUS the "return" 
+(arrow functions do not magically guess what or when you want to "return")
+// Traditional Function
+function (a, b){
+  let chuck = 42;
+  return a + b + chuck;
+}
+// Arrow Function
+(a, b) => {
+  let chuck = 42;
+  return a + b + chuck;
+}
+//5. And finally, for named functions we treat arrow expressions like variables
+// Traditional Function
+function bob (a){
+  return a + 100;
+}
+// Arrow Function
+let bob = a => a + 100;
+
+/extra explanation
+
+summary
+we've done the routing.
+we've put dogs.js and cats.js arrays into state, instead of loading them seperately for each component.
+then populated the cats and dogs views tables with the arrays from state.
+then made a single pet page that uses both arrays in state, and changed the script of table to show only one element from the array.
+Now for editing the array's content by using actions and mutations to update state in store.
+/summary
+
+2:23:34 adding CRUD operations: editing the table's / object's content & how to add actions and mutations in the store.
+let's start by adding a pet. to do this we're going to append the new pet to one of the arrays in store.
+we don't update state directly. generally we'll call an action, which calls a mutation which updates state.
+(that's why we have actions.js, modules.js, mutations.js and state.js next to store/index.js
+and a lot of the times the actions that you call will be also making api calls, because they're asynchronous.
+
+in actions.js we make an addPet method. vue gives you a context object, plus you can give an argument which we'll name pet for now.
+context has a commit method on it. instead of using context and then execute context.commit, we can use commit directly by adding {}
+so we pass the arguments { commit } and pet.
+this function will call a mutation for us, we'll call it appendPet, and we're going to appendPet with 
+our new pet object. (One more thing, since from context we only ever use the commit function, we can leave away the whole .context every time 
+we use commit. So we end up twice with commit (which comes from vuex), and pet which is our custom parameter we're giving the function)
+export default {
+  addPet: ({ commit }, pet) => {
+    commit ('appendPet', pet)
+  }
+}
+now we go into mutations.js and copy appendPet.
+here again, we have 2 parameters. the first vuex gives us is application state, the 2nd is whatever payload we're passing into this function.
+from the next line we can mutate or update state: we want to add, so:   state.'whatever species' .PUSH that onto the array (that pet). 
+we don't have a var species yet, but it'll just point to the right argument we're going to add in addPet. 
+in mutations.js we put [species] between braces because it points to an object (cats or dogs).
+export default {
+  appendPet: (state, pet) => {
+    state[species].push(pet)
+  }
+}
+now to pass the species we're going to have to add the species into addPet together with pet, as we need to push the pet onto the correct array
+so we go back to actions.js which is where the function in mutations.js gets its arguments from, and add another argument species to it.
+ so we add some arguments to the addPet function behind our first argument pet. and include them in {}.
+export default {
+  addPet: ({ commit }, {pet, species}) => {
+    commit ('appendPet', pet)
+  }
+}
+however instead we're going to use payload: payload.pet and payload.species. so we don't need to specify the object { pet, species }
+in actions.js as we're passing it all through.
+export default {
+  addPet: ({ commit }, payload) => {
+    commit ('appendPet', payload)
+  }
+}
+and then in mutations we can make it recieve species and pet and then use it. we're just destructuring the argument 'payload'
+apparently we don't even have to use the names payload.pet and .species, we can just mention it's an object {} we want them from.
+export default {
+  appendPet: (state, { species, pet }) => {
+    state[species].push(pet)
+  }
+}
+Now we have added the possibility to append a pet to the right array.
+next step is to include a button in the home.vue.
+
+so this was all done to get the bottom line of code to work in the 2nd function (not in actions, but mutations)(not addPet but appendPet) 
+where we're using species and pet as arguments.
+some other thing we've learned is that you can somehow give 2 arguments as one in an object as in {species, pet}
+also, the use of => arrow functions.
+
+appendPet: (state, { species, pet }) => {    state[species].push(pet)
+deze pushed simpelweg een pet object into een species array (staat in mutations)
+addPet: ({ commit }, pet) => {    commit ('appendPet', pet)
+deze is puur het committen van de appendPet functie vanuit mutations (staat in actions) 
+de laatste ziet er wat minder uit als functie, maar is wel gewoon een array functie, alleen voert ie een commit uit niet een push.
+
+So as a reminder, Crud is done in VUe by adding actions and mutations in the store.(this is vuex: state management in store)
+what were doing now is adding a new pet to the specific array in store.
+with Vue we're definitly not updating state directly, we call in actions that call in mutations that update state.
+state is always the end goal.
+and with the calls to action we often include api calls because they're asynchronous.
+i guess the differentation between actions and mutations is mainly the first does the commit and takes the arguments,
+the 2nd does the appending to the array with push taking from the state. 
+
+2:27:40 include a button in the home.vue.
+we also put in a method and a data object, which makes the button toggle between showing the form and not showing the form
+in the div of the template of home.vue:
+<button class="btn btn-primary">Add New Pet</button>
+// in the methods: / under name: xx,
+export default {
+  name: 'Home',
+  methods: {
+    togglePetForm () {
+      this.showPetForm = !this.showPetForm 
+    }
+  }
+}
+// this is a method that you can use to easily make a toggle button.
+// note we use = ! instead of != because we wanna change a value, not test if it is a value.
+Now we only need a data object for the starting value of showPetForm which is boolean false.
+  data() {
+    return {
+      showPetForm: false
+    }
+  },
+2:29:07 next we just need a form, we're going to use a vue bootstrap form. take the 1st one, and just copy everything in b-form.
+then
+delete @reset="onReset"
+change v-if into v-if="showPetForm" which is our data property
+we had already put the button to toggle to showPetForm=true. with this we just add if it's true, show this form.
+change @submit="onSubmit" into handleSubmit, which is a function we're gonna write. for now we just leave it empty in methods.
+    handleSubmit () {
+      
+    }
+get rid of the first b-form-group: we want the pets name first and foremost, we don't need an email address for the pet (HA.HA.)
+// change the label in the 2nd b-form-group into:
+<b-form-group id="input-group-2" label="Pet's name:"
+// for the dropdown:
+<b-form-group id="input-group-3" label="Species:"
+:options="['cats', 'dogs']"	
+	//an array of cats and dogs. why the ''??? // the v-model="form.food" and required are in a different order.
+// then delete the checkboxes
+// and add one more form group
+<b-form-group id="input-group-2" label="Pet's age:"
+placeholder="Enter age"
+// and add 
+type="number"
+
+2:31:04 Now we need to update all of the v-models
+// we start by making a new data object called form-data. (which will model all the form inputs... check v-model definition)
+ data () {
+    return {
+      showPetForm: false,
+      formData: {
+        name: '',
+        age: 0,
+        species: null
+      }
+    }
+  },
+// now change all the v-models
+v-model="formData.name"
+v-model="formData.species"
+v-model="formData.age"
+Now the forms should be functional all the way to submit.
+however she gets an error, pressing the button doesn't bring up the form, checking in the vue dev tools, we see the showPetForm doesn't switch
+to true. now if we edit its value to true in the console, it does show the pet form. dat betekent dus dat er iets wrong is met de switch code.
+2:32:35
+// aha, back in the code the method togglePetForm was never added to the button, it was only defined. so
+<button @click="togglePetForm" class="btn btn-primary">Add New Pet</button>
+now let's hook up the form's submit button.
+// in home.vue's script section: 
+import { mapActions } from 'vuex'
+this works in the same way as mapState. but while we add mapState to computed, we add mapActions to methods. that's because 
+we monitor for changes in state, but the actions we map in methods are just functions for us to call to get state updated.
+// in methods we put a function mapArray which takes an array, and the first element we put in there is addPet.
+  methods: {
+    ...mapActions ([
+      'addPet'
+    ]),
+after mapping addPet to our methods, (taking the function addPet from actions.js and putting it in methods)
+we're going to call it from our handleSubmit function. (hadden we ook al in de form html gezet)
+// eerst voeren we addPet ermee uit. in handleSubmit method:
+      this.addPet(payload)
+// dan zetten we er een const payload boven, wat een object is die er zo ongeveer uit gaat zien:
+      const payload = {
+        species,
+        pet: {
+          name, 
+          age
+        }
+      }
+now to get this information we're going to pull it off of formData, in the data object of this page home.vue.
+// so above const payload we put:
+const { species, age, name } = this.formData 	// dit gaat blijkbaar goed. age en name horen bij pet. 2:35:00
+// the final result of this method is:
+    handleSubmit () {
+      const { species, age, name } = this.formData
+      const payload = {
+        species,
+        pet: {
+          name,
+          age
+        }
+      }
+      this.addPet(payload)
+    }
+so when we receiced the formData data we requested in our object we made, specifically species, name and age,
+we use it to fill in const payload. which we pass as an arument to addPet.
+(Now, this will go to the actions.js (with addPet) as our custom payload, which we pass through to our mutation (with appendPet)
+the mutation will have species and pet pulled off payload so it can update state.cat or state.dog by pushing the new pet.)
+2:35:34 let's see if this works.
+she gets an error, it refreshes instead of submitting. this is because it's expecting a server to submit the form to, but ofcourse
+that's not the functionality that we want. (waarom ofcourse, we hebben de table toch op een server?)
+we add .prevent to the calling of handle submit (submit handler):
+<b-form @submit.prevent="handleSubmit"
+this is a shorthand modifier for preventDefault (preventing the default action to occur, so, a link that doesn't link,
+or a submit button that doesn't submit.)
+(so why are we actually preventing the submit, and if we do, how does it still add the item to the list?
+
+get the filled in form to clear after user feedback
+// to reset the form after submit we add this to the handleSubmit method:
+this.formData = {
+        name: '',
+        age: 0,
+        species: null	
+	// we just copied these from the original settings
+How vuex (CRUD, state mgmt) works: 
+you call an action from a component (actions our asynchronous). 
+then from the action you call a mutation (which one depends on what you want to do with the action). 
+the mutation updates state.
+then the components will update with the new state, they are listening because you've mapped the state to a computed function
+
+summary
+we've done the routing.
+we've put dogs.js and cats.js arrays into state, instead of loading them seperately for each component.
+then populated the cats and dogs views tables with the arrays from state.
+then made a single pet page that uses both arrays in state, and changed the script of table to show only one element from the array.
+Then used vuex CRUD to allow editting/updating the array's content: by using actions and mutations to update state in store, and 
+then having the components listen for changes because you've mapped the state to a computed function.
+/summary
+
+
+2:38:22 getters
+there's another object which goes into the store folder, which is called getters.
+getters are like computed properties, but for your vuex store.
+what that means is it doesn't let you update state but it let's you alter what you get from state.
+the use of getters is just modifying how state is seen by a component, so i can just run any function i want.
+FOR EXAMPLE we could count how many animals we have in our arrays in a getter, and then call that getter in any component we want 
+(since it's in state). what we had in state was ?? the two arrays
+// to create a getters:
+// first in store/index.js import getters and export getters. (connect every external store file into this indes store file))
+import getters from './getters'
+export default new Vuex.Store({
+  state,
+  mutations,
+  actions,
+  modules,
+  getters
+})
+// then create a getters object in a getters.js file.
+export default { 
+
+}
+// here u can put any function to change the state, taking state as an argument ofcourse.
+in this case if we wanna know the total numper of pets we just .length the two arrays.
+export default {
+  animalsCount: (state) => {
+    return state.cats.length + state.dogs.length
+  }
+}
+// Now then to use these getters we put them in a component. so let's put this one just above the button in home.vue
+<template>
+  <div class="home">
+    <h1> Adopt a new best friend </h1>
+    {{ animalsCount }}
+// then ofcourse we need to map getters in the home.vue import (otherwise we wouldn't have access to the getters.js file)
+import { mapActions, mapActions } from 'vuex'
+	//right in between the script end tag and the export default
+// and we need it inside computed because we're watching for changes (if there's a change in number of pets it should show!)
+  computed: {
+    ...mapGetters([
+      'animalsCount'
+    ])
+  },
+	// ofcourse using a method in an array, and again with the ''. and again with the spread, spreading the innerds of an array
+	// important: there needs to be no space between the function and the parenthesis for some reason. it will complain about a /n.
+So that's it, let's test it, yes the number of animals shows up. so we're doing this all without updating state. right now,
+I don't see why we would have to do this through getters, why not just use state or even a method. but at least we know how to do it now.
+the use of getters is just modifying how state is seen by a component, so i can just run any function i want.
+2:41:22
+one common thing that you'll be using getters for is for filtering.
+// for example make a function like .. in getters.js, using some data in state as an argument.
+  getAllCats: (state) => {
+
+  }
+// to do this, we'll need another array in state.js
+export default {
+  cats,
+  dogs,
+  pets: [...cats, ...dogs]
+}
+	// notice what the : is for. we use it when it's not as easy to get as one array like cats or dogs. 
+	// and apparently you don't have to do + just ,
+so now for completion we will need to add what species they are with every element in data/cats.js and data/dogs.js so we can differentiate between 
+the two when they're together in one array. (not doing this for dogs now, this is just a quick example)
+  {
+    name: 'Fish',
+    breed: 'tuxedo',
+    species: 'cat',
+// 
+  getAllCats: (state) => {
+    return state.pets.filter((pet) => {
+      		// notice pets refers to the array we made in state, the filter method takes a function, which will give us one pet at a time,
+		as the arument is pet not pets, and allow us to return just the pets we want in an array: only the ones with species type cat.
+	  return pet.species === 'cat'
+    })
+  }
+Now that getAllCats is usable, we can go back to our component in this case home.vue, and find some use for it. 
+// let's print not all cats
+ but the number of cats.
+    <h1> Adopt a new best friend </h1>
+    {{ getAllCats.length }}
+// but we also have add getAllCats inside mapGetters first in computed.
+  computed: {
+    ...mapGetters([
+      'animalsCount',
+      'getAllCats'
+    ])
+So now everything should be working let's check it in the browser it should show the number of cats returned vs the total of pets.
+just one silly error: import state from './state' should have single quotes all of a sudden. and she doesn't even have it in the file getters.js
+
+You can do a lot more with getters, for example you can pass in another getter like this: getAllCats: (state, anotherGetter) => {
+for example animalsCount.
+
+2:46:00 so if you wanna learn about the setting up of sass, just watch the end of the tutorial. I won't do it now, because I don't really
+know what it does. I'll use it when I need it. It might be usefull in editing a website to look special, but for now, i think i should
+first fiddle with bootstrap vue and just making more standard functioning webpages.
+
+2:44:58 using SASS in VUE! (or any other add on i guess)
+setting up SASS inside of a (new) vue project
+sass is a css extending programming lanuage. a css preprosessor. (also like dwt does java into JS)
+It's also similar to bootstrap in that it gives you templates of styling.
+Sass lets you use features that don't exist in CSS yet like variables, nesting, mixins, inheritance and other 
+nifty goodies that make writing CSS fun again.
+
+add a folder and index.sass file in: /src/assets/sass/index.sass
+make some folders for your components, libraries and global styles.
+/src/assets/sass/components
+/src/assets/sass/libraries
+/src/assets/sass/base
+we'll import them in the index.js file:
+// libraries
+
+// base
+@import 'base/variables' 
+
+// components
+@import 'components/home'
+
+what is the division in three groups for? base/variables, libraries and components?
+so for example, you could make a theme or a couple of themes the user could choose from, and then attach them to a class, and 
+then toggle that class dynamically from the JS inside your vue components.
+libraries contains for example: mixins, material designs and css. (check out the sass guide if you wanna know about the terms)
+base contains for example: font or color css settings, perhaps from google or microsoft whatever.
+
+as an example of making something in base:
+// 1 first you make a .sass file in base folder: 
+ /src/assets/sass/base/_variables.sass
+// there you put in the code, like font css for example, 
+$main-font: 'Helvetica, sans-serif
+$blue: #000034
+// 2 then you have to import them in the index.js 
+@import 'base/variables' 	// you don't have to add .sass, .scss or the underscore.
+
+global styles will all be in /base. component specific css classes. will be in /components)
+it'll be handy to use wrapper classes in the tags of components.
+they'll contain the nested tags so the css won't affect any other part of the application.
+
+in /components you'll put all component specific css classes.
+so for example home.vue it would be called home.sass (in the sass/components/ folder)
+
+as an example of making something in components:
+// 1 home.sass will look something like this:
+.home-view-container
+	color: $blue
+	/* all the nested classes like color: $blue. why is the $ on the value and not on the property, like in base? */
+
+// 2 then you have to import them in the index.js 
+@import 'components/home' 	/*  you don't have to add .sass, .scss or the underscore. */
+
+so all we've set up for now is adding different kinds of styles for global and components.
+the components all have their own .sass file in components (and class in the .vue file)
+while the global stuff is in the base.
+we still have to import everything into the main.js file.
+// 3 import the index.sass into the main.js:
+import './assets/sass/index.sass' // i won't do this for my own file, don't wanna deal with all the errors.
+this should actually work, and therefor apply all sass files to the projects, because when we started the pets app and installed everything 
+(locally) like the linter (formatter), like babel, we also installed a css preprocessor: sass/scss with node-sass.
+so the vue cli set up all of the sass processing for us, and being able to complile it to css etc.
+(so 'ofcourse' we needed an install before the import. // check back how that was with bootstrap.
+
+2:51:04
+als ik dit wel echt allemaal ga uitvoeren, zal ik het ook allemaal goed moeten zetten in vscode: sass stuff inzetten.
+misschien eerst maar even kijken of ze echt nog wat boeiends doet in die laatste 8 minuten. nee, niet wat betreft sass.
+
+2:54:14
+ze veranderd nog wel de table, die hebben we nu dubbel staan in zowel pets en dogs, daar kan ze er heel makkelijk 1 van maken in een aparte 
+component, zodat je met gemak de style kan veranderen bijvoorbeeld of een andere verandering.
+*lesje: vue is echt een gebruiksding die het werken voor de enduser en de webmaster makkelijker maakt. het maakt alles overzichtelijker,
+hoewel het op het begin wel wat meer werk lijkt allemaal. al dat importen enzo, en die tussenstappen zo uitdrukkelijk maken.
+een echte coder kan ook zonder vue heel snel een website maken. maar die is niet erg scalable.
+// make a new file in src/components (not src/views!) and copy the whole template from cats.vue and edit it.
+<template>
+    <div>
+      <!--<p>difgerfewfi</p> dit was een test of die wel een p wou weergeven-->
+      <h1>{{ species }} for Adoption</h1> <!-- change cats into {{ species }}-->
+      <b-table striped hover :items="cats"> <!-- change "cats" into "pets"-->
+        <template v-slot:cell(name)="data"> 
+          <a :href="`pets/${species}/${data.index}`">{{ data.value }}</a> <!-- change /cats into /${species}/-->
+      </template>
+      </b-table>
+      <h1>"cats"</h1>
+    </div>
+</template>
+// we'll feed the table with pets, we're not going to feed individually from cats or dogs.
+// to make it unique for each array (cats and dogs) we'll need to pass some props to this component from both our cats.vue and dogs.vue.
+<script>
+export default {
+    props:{
+        species: String,
+        pets: Array,
+    }
+}
+</script>
+
+// then in cats.vue  we just need to import the table: 
+import PetTable from '@/components/PetTable.vue'
+// and then use it by declaring it in components
+  components: {
+    PetTable
+  },
+// and then replace the old div (in cats.vue) with:
+<template>
+    <div>
+      <PetTable 
+      species="cats" 
+      :pets="cats"
+      /> <!--
+        :pets="cats" this cats points to an array, since we're using v-bind, it's looking for a variable so its pullng the cats off of computed,
+        while species="cats" is just standard static html, telling the species attribute = the string cats.
+      -->
+    </div>
+</template>
+
+we could do the same thing for dogs, but i'm not going to because i don't wanna change the whole tutorial
+
+end of tutorial.
+for further learning: state of vue (by the creator of vue)
+the JaredWilcurt
+views on vue podcast
+
+
+summary
+program folder:
+-the main program folder contains nothing much we use much ourselves when building a site.
+everything we need is in the /src folder. this unused stuff is the  public and node folder.
+furthermore it contains all the installed stuff like babel, linter and package.json.
+the public folder contains the index.html (the file that opens everything we make, by <div id="app"></div>).
+-the src folder contains two files: the main.js and app.vue. 
+the main.js is where your vue/js gets rendered to your page. it mounts the vue to the dom element with "app" in index.html.
+main.js imports vue and app.vue, which is the first real page. it contains the html and css for the returning elements
+that are found in every other vue, like the nav with router-links.
+main.js also imports all other PARTIAL vues if they are used in the main page, like header and Qbox, 
+and can contain some data, (lifecycle) functions. however the main page can also be in its own home view.
+-the src folder contains all the important folders:
+it contains the all important views folder (all components that are views),
+the components folder (parts of the views that can be reused in other views, like header, questionbox, table with styling and code).
+and the data (base objects and arrays, js), router (routing) and store (state management) folders. also the assets (plugins)
+/summary
+
+summary from the start
+10-11-2020
+rewatching the tutorial to get the main line out of it. not how it's done but what it does. dan kan je er later altijd nog mee gaan
+fidgetten. zo leer je het pas. dus eigenlijk zijn tutorial filmpjes overcompleet. je moet er overheen lezen en de hoofdpunten eruit pakken.
+altijd kijken naar what not how. maar om precies te weten what it does moet je ook wel een beetje kijken how it's done, want het is
+allemaal een nieuwe omgeving voor je. In ieder geval zijn dingen als de syntax niet belangrijk de eerste keer. Eigenlijk, want in de 
+praktijk doe ik het altijd andersom: ik doe alles heel secuur en precies na, om als alles eenmaal geschreven is, de kern te zoeken.
+
+apparently we should have gone over:
+directives
+methods
+data binding
+events filters
+computed properties
+components
+component lifecycle.
+
+and in part 2:
+props & slots
+making API calls
+vue router
+vuex state management
+
+JSfiddle.net is een handige site waarop je code kan schrijven en waarop vue al geinstalleerd staat.
+
+vue gebruiken in 2 stappen:
+eerst een nieuwe instance van de reeds geimporteerde vue, en vastmaken aan tag met id root. new vue({ el: '#root', data:... }).
+en dan kan je gelijk beginnen met data maken en dat weergeven bijv {{ greeting }} data: { greeting: 'Hello',
+data binding: v-model. hiermee kan je de greeting var aan een input vastkoppelen die je in de template neerzet. <input v-model="greeting">
+heb je dus zo al een manier voor de gebruiker op een var aan te passen. 
+input is gewoon het vakje met functionaliteit, titels moet je er bijschrijven ( 'schrijf hier wat op:')
+PS je ziet dus hoe simpel het zou zijn om een number typing page te maken.
+ik hoef niet eens bootstrap toe te voegen, zou ook gewoon simpel met standaard html kunnen werken, en dan zou ik met dit al klaar zijn, 
+zou alleen nog ff een functie nodig hebben die wat cijfers randomized. ook een calculator heb je in 5 minuten klaar.
+
+v-if EVALUATES AN EXPRESSION to a boolean value. for example test= (==) wordt true of false.
+nu zou je met v-if bijvoorbeeld al wat functionaliteit kunnen toevoegen, bijv. zeg maar wat, de kleurtjes van de tekst laten veranderen
+op basis van de input vereisten als lengte, of daarna de knop uit of aan zetten als je v-bind disabled erbij gebruikt.
+v-if zet je trouwens in de template in de tag, en je verwijst ook gelijk naar een nieuwe data var, bijv. v-if="count === 1"
+(ook leuk hoe ze divjes gebruikt die altijd aanwezig zijn, maar onzichtbaar natuurlijk om op te springen met een v-if. 
+zo lijkt het net een en dezelfde if, maar dat is dus niet. het zijn 3 verschillende divs.)
+(ook interessant dat true automatisch toegepast wordt op de tag dus bijv. bij <div v-if="count === 1"> en dat is true,
+dan wordt ie weergegeven anders niet. pas als je extra doelen gaat aangeven dus bijv if count, color is blue, werkt ie niet meer op 
+de hele div maar op het onderdeel color van de div.)
+v-show is een versie van v-if die ook al is het false, dan nog wordt ie wel naar de DOM gerendered, maar met style="display: none"
+
+v-bind can take an html attribute and parse it as JS, thereby expanding its functions.
+net zo als on click <button onclick="alert('signed up')"> kan doen (JS uitvoeren binnen html met attribute onclick), 
+kan <button v-bind:DISABLED="greeting.length <= 3"> script uitvoeren binnen door ook nog eens letterlijk html attributes aan te passen.
+beide formules doen een onzichtbare bewerking waarmee ik bedoel, de functie staat niet compleet in de template waar ie wordt opgeroepen.
+bij de ene is zijn naam onclick bijvoorbeeld de trigger, terwijl bij de ander de trigger als input wordt gevraagd.
+veelgebruikt is ook dynamically add classes met v-bind: <button v-bind:CLASS="{red: greeting.length <= 3}">
+dat is handig als je veelgebruikte classes wil gebruiken en er automatisch tussen wil laten switchen.
+(had dit niet ook met v-if gekunt?)(ik denk het wel, v-bind is in dit geval gewoon een andere manier om het sneller te doen)
+10:34
+
+directives: v-model is er 1 van. ook v-if. v-bind (:). je gebruikt ze binnen de template.(verder v-for, v-on (@))
+directives zijn eigenlijk advanced versies van attributes.
+ze gebruiken dus script van vue om almaar specifieker wordende handelingen uit te voeren. als attribute in de html.
+v-model doet gewoon het aanpassen van een data var, v-if kan van alles doen, van het showen van zichzelf tot een kleurtje van een onderdeel,
+v-bind kan zich hechten een bestaande html atributes, niet alleen aan stuff als disabled, maar ook aan zelfgemaakte css classes als red.
+10:34
+other less common directives: <v-text="some var"> instead of {{ some var }}. v-html will parse the input as html.
+the handy thing with the {{}} is you can put it inside something else like v-once <p v-once>{{some var}}</p>
+this will make it use the some var only once, it won't get updated after the initial value like {{}} would.
+
+looping with v-for
+<ul>
+	<li v-for="cat in cats">{{ cat }}</li>
+</ul>
+notice how that which you show is in between the tags, and that which are the rules/attribute/directive is in the first tag.
+the actual cat array then has to be in the data section of <script>. 
+if cats would be an object you'd just have to write <li v-for="cat in cats">{{ cat.NAME }}</li> nothing else. no change in the 1st tag.
+
+functions
+let's say we want to be able to put another cat in the array/object. we'll keep what we have (being able to show the array values with v-for)
+and we'll add a v-model to an input tag, which will store the input in an empty var we'll call addKitty,
+we'll need a function,
+we'll need a button, (which is super easy to make, <button> ADD </button> looks great already.) with a v-on we can make it initiate a function
+<button v-on:click="addKitty"> ADD </button> (and v-on can be replaced with @)
+and that function is super easy to make, just add a function addKitty to the methods object, and all the function does is give a return
+that pushes newCat onto the array cats this.cats.push(this.newCat) -or if object ({name: this.newCat}) to push the newCat into an object.
+THIS. we have to use everytime we want to use something from the data object
+To add enter-functionality into the input, we add another directive to input. a v-on again. <input v-on:keyup.enter="addKitty"> next to the
+v-model newCat which it already had. it follows logic that input both stores the var and starts the function. (as well as the button)
+Then finally we want to add the functionality that deletes the string after we pressed enter. we do this by 
+adding a 2nd action to the function: an empty this.newCat = '' after the push.
+
+so now we have a fully functional input, button, and data-shower and a function that adds the input to the data array.
+this is ofcourse nice if we want to make a big website that uses databases, but we could easily change the function from adding 
+something to an array, to something more usefull like switching up the numbers inside of an exapmle sentence for speed typing.
+
+21:12
+vue has many events and modifiers which you can chain onto events: for v-on:click .prevent and .stop.
+filters: don't have to learn this, replace them by computed properties or methods calls in vue3.
+filters are used to pipe a value and change their display in the DOM. so the actual var doesn't get changed, just the way it's displayed.
+you used to be able to put a | filtername next to a var you'd display in the template, and write a filter function, to enable that filter,
+however you can also do that with computed
+25:00 computed methods
+this example is used to do the same thing a filter would do. (kittify)
+computed: {
+  kittifyName: function() {
+    if (this.newCat.length > 1) {
+      return this.newCat + 'y'
+    }
+  }
+and then, in the template:
+{{ kittifyName }}
+and now you can use {{}} to display: {{ kittifyName }}. Note that we're adding the y only to our input newCat, not to the cats in the list.
+In the filter example you'd just write the function next to the unchanged {{ cat | kittify }} in <li v-for="cat in cats">{{ cat }}</li>
+in the computed way, you'd just replace the {{ cat }} with {{ kittifyName }}. so you stop using the original varname in the template
+and replace it with the whole computed filter name.
+29:56
+Now she shows us how components can be added in this JSfiddle environment.
+
+so main used directives: v-model, v-if, v-bind (:). je gebruikt ze binnen de template.(verder v-for, v-on (@) voor functies)
+je kan hieruit leren wat gedaan wordt door template, wat door attributes/directives en wat functies/computed.
+zo leer je opeens een heleboel kleine dingetjess maken.
+
+components summary 29:56. Je kan ervoor kiezen om je lijsten in aparte components te zetten. dan maak je in een nieuwe component 
+een hele zelfstandige template met alleen maar een lijst erin, evt zet je er ook nog zijn eigen data objecten en dergelijke in, 
+om er dan in je oorspronkelijke template alleen maar naar te hoeven verwijzen.
+je maakt dus een component met de naam cat-list:
+Vue.component('cat-list', { 
+  template:
+    <ul>
+      <li>cat</li>
+    </ul>
+in plaats van dat dat in je oorspronkelijke template zelf te zetten, waar je nu alleen nog maar naar hoeft te verwijzen met de naam
+ipv de oorspronkelijke tags zet je een tag met <cat-list />.
+je moet dan ook wel een opsomming van je componenten maken in je oorspronkelijke app.vue:
+component: ['cat-list']
+Het kan ook andersom: niet dingen exporteren uit de nieuwe component, maar accepteren/importeren uit de oorspronkelijke app.vue.
+dat noemen ze props. the way to accept variables in a component is through props.
+hier importeer ik de cats array uit app.vue:
+props:['cats']
+en nu kan ik dan in de template van de component het simpele voorbeeld listje <li>cat</li> 
+vervangen voor <li v-for="cat in cats">{{ cat.name }}</li>.
+terug in de app.vue moet ik dan ook wel weer een wijziging doorvoeren.
+simpelweg <cat-list /> in de template (naast ook de component opsomming component: ['cat-list'] )
+volstaat niet meer als ik meer dan wat simpele html tags zoals een list wil invoeren en weergeven.
+ik met dan ook <cat-list /> vervangen voor <cat-list :cats="cats" />
+om aan te geven dat ik uit de cat-list component niet alleen werk met een simpele list maar met een object. 
+in principe is het hetzelfde als <li v-for="cat in cats"> herhalen, of naar de prop ['cats'] te verwijzen die in de component wordt gebruikt.
+<cat-list :cats="cats" /> staat voor een vue attribuut van de cat-list component is "cats" wat de prop en uitendelijk de array of objects is.
+het is dus een andere vorm van v-bind naast classes:
+"v-bind kan zich hechten een bestaande html atributes, niet alleen aan stuff als disabled, maar ook aan zelfgemaakte css classes als red."
+cats wordt dus een attribute die bij het weergeven van de component cat-list ook array weergeeft.
+het makkelijkst om het te onthouden is eigenlijk gewoon: ik moet in de JS sectie met data/components kijken dus moet ik een :v-bind hebben.
+het is wel een beetje een raar voorbeeld want nu importeer ik iets uit app.vue om het vervolgens weer terug te plaatsen in app.vue,
+maar het is even om het principe van props weer te geven.
+33:30 lifecycle functions: trigger functions to run.
+/summary from the start
+
+nog wel ff over props leren, want ik ga denk ik met vue router meerdere soorten oefeningen inplementeren in mijn typing app.
+maar eerst nog even vanaf het begin beginnen, een single page app met letterlijk 1 view.
+het lijkt mij het best met vue die eerste app te schrijven. dus dan moet ik ook gelijk ff een folder ervoor maken: typing-app.
+het is eerst even met directives een enkele view maken, om het oefenen van basale code, voordat we met components gaan werken.
+(Dit zou ook met vanilla JS kunnen, maar waarom zou ik? het is wel leuk omstraks bootstrap toe te voegen etc.
+vanilla js is maar lastig, om uit te typen, maar ook om uit te breiden.)
+dus eerst 
+de code omgeving installeren in de folder,
+dan met de directives de basisfunctionaliteit
+dan meerdere pages en components.
+het zal denk ik goed zijn om van beide tutorial apps nog even de beginnetjes te bekijken om de verschillen tussen
+de basis opmaak te bekijken..
+
+
+
+short notes and summaries of other vids about vue
+
+
+babel is part of the tooling vue cli comes with and compiles the JS code into older versions of JS.
+
+
+vue 3 intro about reactivity from vue mastery
+
+https://www.vuemastery.com/courses/vue-3-reactivity/vue3-reactivity
+reactivity: so that for example a console.log will change when an underlying var changes. for example
+total price = price x quantity. 
+10 x 3 = 30
+price = 15.
+non-reactive: 10 x 3 = 45 (total doesn't get updated)
+reactive: 15 x 3 = 45 (does get updated. because we after the update of price to 15, we run trigger.)
+what we wanna do with reactive, is store the formula somewhere so it get's updated automatically.
+vue3 uses 
+track, effect, and trigger. track saves the formula in a special place, effect wil run it,
+and trigger is called everytime when we actually wanna execute it. (let it do what it does, be reactive)
+(keeps track of when we want it to get updated?)
+anyway, dep is where we store all effect vars. the trigger function will run all effects in dep asociated.
+
+what now if we give it objects with multiple properties that need to be updated? (beside total price for example discount price)
+we just need to write out the stuff allowing for multiple properties. the code would look like this:
+each property (/var) will need their own dep. all deps are stored in the depsMap. so depsMap has to be an object. 
+price has its own dep, as does quantity. those are the properties (keys). the value's are the deps which have their effects.
+first we write the track function (that handles objects with multiple properties)
+the track function: will first get the dep, the key will be either price or quantity,
+if it doesn't have it's own dep yet, create one and store it in our map under the key. 
+after that check, it just adds the effect (but never double: Set is used).
+then we write the trigger function (that handles objects with multiple properties)
+the trigger function: will first get the dep for the key, if it exists it will go through the effects and run them.
+
+let product = { price: 10, quantity: 3 }
+let total = 0
+
+let effect = () => { total = product.price * product.quantity }
+
+track ('quantity') // to store the effect
+effect () // to run the effect.
+
+>console.log (total)
+15
+>set
+product.quantity = 4
+>run
+trigger ('quantity')
+>console.log (total)
+20
+
+so now we have a way to track dependencies for multiple properties.
+but what if we have multiple reactive objects that each need to track effects?
+06:19
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+vue is echt frontend php en laravel zijn echt backend. voor grote projecten heb je vaak ook wel teams waarbij de backenders 
+een api schrijven voor de frontenders zodat die zich niet met de backend hoeven bezig te houden.
+en dan nuxt. what nuxt does is preloading de single page application wat vue maakt, op een webserver, zodat de vue website weer 
+leesbaar is voor SEO en google crawlers, en gewoon sneller laadt.
+dit doet het door de JS die op index.html staat te preloaden op de webserver.
+Nuxt.js makes it simple to share code between the client and the server so you can focus on your application’s logic. you won't have to 
+do a lot of configuration twice in both server and cliend side. universal (JS?) programming becomes easier. 
+It also allows you to choose to render on either the client or the server side.
+nuxt can be handy, but its main business is making universal apps, in which you can influence both front AND backend. (with JS)
+however, isn't the great thing about vue that it allows for single page applications (client side websites)? you decide.
+nuxt is voor vue wat next is voor react gebruikers.
+vue cli is static, nuxt is dynamic prerendered )handig voor seo)
+vue 3
+vue 3 filters removed, composition api added. but not necessary for simple components. enough is data methods computed. vueschool
+vue 3 za alles kunnen runnen wat vue 2 al kon. maar dat geldt niet voor vuex. vuex moet naar v4 en is niet compatible.
+
+vue intro
+https://www.youtube.com/watch?v=FtXd_qQJgfI
+vue angular en react zijn frameworks, jquery is een library.
+vue kan anders dan react of angular, die een hele app voor je maken, ook gebruikt worden voor 1 divje.
+template gedeelte is als angular met directives. ook v-for net als ng-for. 
+component workflow is als react. components using props. passing in props to a component. 
+<li v-for="movie in movies"> = directive.
+<Movie :movie="movie"/> = component
+computed staat voor computed properties. give us acces to template tags. to modify data or props in component or output something new.
+verschil methods/lifecycle functions: methods kunnen worden aangesproken door actions, of door lifecycle functions zelf.
+css. <style scoped> means it's page specific. meaning no need for classes, it counts for the whole view.
+
+vue (3?) intro traversy january 2019. includes intro to gui fo rinstalling server, building and tooling.
+https://www.youtube.com/watch?v=Wy9q22isx3U
+You could use vanilla JS for scripts in your website, but for bigger websites, Vue JS framework makes it much more organised.
+You'll seperate the different aspects of your user interface as individual components.
+Like react, it's a single page appllication framework, meaning one page is loaded in the browser and then everything
+is done through a virtual DOM. also only certain parts of the page will be updated when they need to be.
+with vue router you can have multiple pages in your app.
+through props you can have all single components interact with eachother.
+(component division could be: for to do list: toDoApp (containing:), search, toDoList, toDo (x3), addToDo.
+each component can hold its own data, methods and in the template: directives.
+in de script heb je de export default. als je in data een object hebt met de naam user en de inhoud personen bij naam,
+user: { name: 'Brad' }
+declare je hem nogmaals in  export default: (en dan is de objectnaam dus zelf een value in de object van export default)
+name: 'User'
+dit extra declaren doe je als je hem in een andere component weer wilt gebruiken
+en in de template zou je die weer op kunnen roepen door:
+{{ user.name }}
+Instead of using vue.cli you could include vue in a simple script using a CDN like cloudflare,
+the tooling for Vue (preinstalled add ons like linting, babel, typescript, post css) is very complete.
+vue has a gui for setting the development server.
+vuex = state management
+To Traversy: Thank you very much for the Chart.JS course and the 9 hours couse on javascript projects you did for Eduonix.
+
+
+scrip kiddies: automation: input (or monitord input) leads to output. perhaps over long distance, a message or a making.
+cron-job for unix: set a time and check for true or false, then execute.
+-push a button and communicate with a whole differnet appliance to do something.
+-random late to work message with different excuses if the pc is not on at a certain time. 
+-when emailed by client, does automated rollback to backup on clients server via ssh.
+
+
+
+
+
+
+i should learn more about lifecycle functions, check that back, 
+and by the way, also .this, and arrow functions.
+
+this is the kind of summary i have to make of the whole vue tutorial. very short, non-technical, the main principles:
+! so for example in base, you could make a theme or a couple of themes the user could choose from, and then attach them to a class, and 
+then toggle that class dynamically from the JS inside your vue components.
+
+
+
+
+
+
+het is niet mijn hobby om op voor jou gevoelige onderwerpen in te haken, en je hebt tot een zekere hoogte wel recht om
+eigenaardigheden te behouden, maar ik heb ook recht om jou erop aan te spreken als je iets raars doet. en zeker als je mij krenkt.
+als je mij krenkt mag ik gewoon iets terug doen, en dat doe ik niet eens! in plaats leg ik uit en blijf daarin aanhouden.
+je doet een verzoek tot het maken van een uitzondering voor jou. maar is die uitzondering wel nodig? is die niet erg lastig voor mij?
+ben jij niet intelligent genoeg om die uitzondering helemaal niet nodig te hebben?
+sommige mensen zoals een vrouw of iemand waar ik mee samen leef, of juist iemand die ik helemaal niet vaak tegenkom,
+zal ik misschien meer ruimte geven ter voorkoming van escalatie, dan zou ik misschien mijn hand over mijn hart strijken.
+maar het zou niet lang duren, of op zijn minst blijvend van binnen ergernis veroorzaken.
+als ik jou nooit iets zou mogen aanraden, dan is dat wel heel lastig. dan moet ik dus alles accepteren waar je mee aan komt
+en hoe je je gedraagt. er moet ergens een grens zijn. en normaal ligt die grens ergens bij belediging van karaktereigenschappen,
+niet bij slechts een het geven van een tip.
+
+ik mag gewoon wel kleine kritiekpuntjes uiten maar jij doet alsof je aangevallen wordt. 
+en nu doe je door eerst te hebben aangevallen en te zijn blijven ontkennen, 
+opeens toenadering van zullen we elkaar voortaan met rust laten. 
+maar dat gaat voorbij aan het feit dat ik je helemaal nooit heb lastiggevallen, en dat het maar pretend was.
+pretend lastiggevallen te zijn geworden, en dan om een truce vragen. terwijl die ander gewoon nog steeds op een normale reactie wacht.
+keiharde slachtoffers.
+
+3nov dinsdag vdheide 1015 ecg 1030 cardioloog
+
+het begon met een op of aanmerking van je denkproces. ik zie dat als een opmerking maar je zou het ook wel als aanmerking kunnen interpreteren, omdat het niet een opmerking is over iets positiefs maar eerder een bijzaakje met een negatieve waarde, een slordigheid. jij interpreteerde dat als een aanval, en ging in de verdediging. maar van mijn kant is het dus geen aanval, eerder een opmerking dan een aanmerking, laat staan een aanval. ik wil het er gewoon met je over hebben, jou gewoon bewust maken van het feit dat je dat doet en zien hoe jij dat ziet, maar jij ziet het blijkbaar als iets dat zo bij je hoort, dat je het gevoel krijgt je te moeten verdedigen. en daardoor dus frontaal in de aanval gaat met doen alsof je wordt aangevallen, mij beschuldigen en mij voor gek verklaren. Je maakt van een mug een olifant, van een vlieg een olifant. en vervolgens beschuldig je mij van discussies, maar dat is het gevolg van de olifant die je zelf hebt gecreeerd.
+wat je in je brief zegt waardeer ik allemaal wel, maar stond voor mij ook niet ter discussie. ik weet dat je goeie bedoelingen hebt. het gaat mij erom dat ik best dingen van jouw manier van expressie mag opmerken, dat zou iedereen moeten mogen die zo veel met je omgaat, en dat dat gesprek dan niet beland in een discussie over je karakter, wat opeens wel een belangrijk onderwerp wordt, omdat je in de aanval gaat. dat is het belangrijkst, dat je niet meer zo hard van je afbijt en doet alsof er niks aan de hand is, als je mij beschuldigt van altijd maar kritiek op jou hebben zonder op de inhoud van die kritiek in te gaan. je stopt met luisteren en gaat in de aanval, als je mij beschuldigt van altijd lange discussies willen voeren, terwijl ik alleen maar rechtvaardig behandeld wil worden. Als je reacties niet voortkomen uit een negatief beeld van mij, zou je mij ook niet negatief neer moeten zetten (als iemand die altijd maar onterechte kritiek op arme jou heeft)
+Je eigen visie verdedigen is niet de enige natuurlijke reactie, er moet ook ruimte zijn voor introspectie. en die kom ik ook in je brief nog niet genoeg tegen. niet introspectie waarin je meeneemt de argumenten die ik heb aangedragen.Je geeft in je brief toe dat er eigenaardige aspecten aan je persoonlijkheid zitten, fijn bedankt, maar laat het daar dan niet bij zitten anders blijven we dit soort botsingen hebben. Dat je je manier van omschrijven niet kan veranderen, alla, maar de discussie die daar op volgt kan je wel voorkomen.
+als ik een vrouw zou hebben zou ik inderdaad niet zo veel tijd besteden aan dit soort dingetjes bij jou, maar ik heb dit soort gesprekken met iedereen waarop ik wat heb aan te merken, en dat wordt inderdaad niet altijd even goed opgevangen. Maar dat betekent eerder dat ik helaas relatief veel mensen ben tegengekomen die niet kunnen omgaan met kritiek, waarschijnlijk omdat het gevoelsmensen zijn. En in een reactie op kritiek de schuld van een lange discussie bij mij leggen. en hun eigen twisted, roofdier-achtige aanvallen niet onder ogen durven te zien. Met het argument van 'als ik een vrouw zou hebben zou ik niet' leg je weer de schuld bij mij.  dat je dat niet ziet! en dat je het niet zo bedoelt betekent dus blijkbaar dat het een automatische verdedigingsreactie is die bij je opkomt, die je best wel eens zou mogen leren inhouden.Dat het niet bij iedereen altijd goed wordt opgevangen betekent niet dat het ongewoon is een eigenschap/expressie van een ander te benoemen en bekritiseren. het is niet eens kritiek te noemen, ik wees je gewoon op een betere manier van omschrijven, wat voor ons beide handig zou zijn als je je bewust zou zijn van een foutje. Als dat al te veel voor je is... waarop je het noodzakelijk vindt mij te gaan bekritiseren, waarop van mijn kant volgt het aanvechten van een veel ergere karaktereigenschap (valselijk beschuldigen, omdraaien wie er begint, stemming maken). Want dan ben ik het juist die het slachtoffer is. Ik heb dus alle recht om dan daar tegenin te gaan. een discussie is nog een veel te aardige manier.
+Op wo 23 sep. 2020 om 13:25 schreef Irene Straver <irenestraver@gmail.com>:
+Lieve Floor,
+Op een briefje heb ik puntsgewijs je opmerkingen opgeschreven en er over nagedacht.
+Dat valt me niet gemakkelijk, omdat het een natuurlijke reactie van me is mijn eigen blik op de dingen te verdedigen. Als ik dit loslaat, zie ik wel dat je heel terechte kritiek hebt, al wil ik erbij vermelden dat mijn reacties nooit voortkomen uit een negatief beeld van jou; er is veel lofwaardigs in jouw persoonljkheids opmaak. En mijn ene bezoek aan de autismekliniek van twintig jaar geleden stelde niet veel voor: daarin vertelde ik ook dat ik èèn moeilijk kind had - Elvira - en èèn gemakkelijk - jij. Maar dat jij zelf in die tijd aangaf menselijke emoties niet altijd te kunnen begrijpen en daarom naar de psycholoog verwezen was.
+Jou de 'schuld' geven is niet mijn bedoeling, maar dat jij het zo interpreteert is begrijpelijk; als ik het niet met je eens ben, vooral wat betreft mijn persoonlijke eigenaardigheden, is dat inderdaad vaak omdat het een zelfbeschermings reactie van mijn kant is - het doet zeer als er aan je zelfbeeld getornd wordt. Het gevaar bestaat dan natuurlijk dat je je verschanst in je eigen versie van de uitwisseling en zo geen erg hebt in je eigen blinde vlekken. Dus daarin geef ik je gelijk. Het spijt me.
+Het is daarom niet zo gemakkelijk om 'mee te gaan met de flow' en je goed naar de ander toe te bewegen, zoals je aangeeft - al probeer ik dat echt wel. Maar mensen zitten vaak anders in elkaar en goed bedoelde opmerkingen komen dan geheel verkeerd aan bij de ander.
+Ook speelt mee dat ik al aardig oud ben en 'set in my ways' .... het is moeilijk om ingeslepen (denk)patronen te veranderen op deze leeftijd. "Can't teach an old dog new tricks" zeggen ze dan. Dit soort misverstanden had ik niet met mijn ouders, mijn moeder en ik waren heel gelijkgestemd; mijn vader en ik vermeden pijnlijke onderwerpen meestal, na zijn 'desertie' van ons gezin - wat natuurlijk ook niet goed is. Als jij een vrouw en kinderen zou hebben, zou dit ook minder aan bod komen, denk ik - dan zou je gezin en de relatie met je vrouw je focus zijn. Maar omdat wij elkaar vaker zien dan het geval zou zijn als jij een andere focus zou hebben, vallen deze eigenaardigheden en onhebbelijkheden veel meer op.
+Dus: ik blijf onveranderd in mijn liefde en waardering voor jou en doe echt mijn best voortaan niet puur vanuit mijn eigen visie op je te reageren. Al geef ik meteen toe dat dit niet altijd zal lukken....
+Nu op weg naar Heleen en de film
+Veel liefs, mama
+
+
+
+
+
+
+ 
+
+
+

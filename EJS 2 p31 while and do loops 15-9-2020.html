@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+</head>
+<body>
+<!--
+schrijf een programmetje dat console log van alle even nummers vanaf 0 tot 10 doet. (met een while loop of een do loop)
+15-9-2020: 
+om dit te openen (je hebt geen server runnen met deze html pagina) open je gewoon een new tab in chrome, en typt
+C:\prog\Drive\progdocs\old programmeren docs\programmeren\eloquentJS\EJS 2 p31 while and do loops 15-9-2020.html
+daarna kan je de console openen om de console.logs te zien.
+
+doel van deze re-edit:
+ik wil even testen of dit ook draait  zonder do, of zonder while. 
+wat heb je nodig om code te laten draaien? * denk dat een for of functie wel handig is anders kan je alleen rekenen bijv.
+	alhoewel, 
+doet een loop het zonder voorwaarde? * denk dat dat endless loop zou worden zonder gerichte break.
+-uit deze code blijkt al dat je bijvoorbeeld geen functie nodig hebt om te loopen.
+-en om code te runnen, heb je vrijwel niks nodig, de bases is:  var x = 3  x=x+4;  console.log(x);
+je hebt dus geen function nodig, en ook geen while/do/for statements. en het hoeft ook niet allemaal in een codeblock te staan.
+het gaat er gewoon om dat je in volgorde hebt staan een var declaration en daarna een actie. met er tussenin evt. een bewerking.
+tot slot laat ik ook nog zien dat je met een if en een break ook een for kan laten eindigen.
+
+en waar kan ik in een vue document code runnen? kan ik compare to null doen en een console.log?
+ergens tussen plakken? 
+console.log(object == null); als true uitkomt dan geen waarde in de object want in JS is true alleen als beide null zijn.
+
+verdere korte inzichten uit deze code:
+1)
+een for loop werkt zo: 
+for ( begingetal; while; actie ) bijv: for (number=0; number <10; number++)
+en als je een aparte counter var gebruikt ipv alleen de veranderde begingetal waarde, dan zet je de counter in de for en de bewerking (de actie)
+in de block {} na de for()
+
+(voorbeelden:)
+var number = 4
+for (counter=0; counter <10; counter++) {
+	console.log(number);
+	number = number +=2;
+}
+en wat je dan niet fout moet doen is de console.log onder de formule zetten zoals bij de while en do loops,
+anders geeft ie maar 1x een console.log
+dus niet zoals dit:
+<script>
+var number = 4
+for (counter=0; counter <10; counter++) {
+	number = number++;
+}
+console.log(number);
+ook pakt ie de ++ niet voor  number om de een of andere reden. dus gebruik ik +=1 of +=2
+
+2) Op zoek naar de kortste code. eerst een var declaren en dan de var een andere waarde geven. zoals hier:
+var x = 3
+x=x+4;
+console.log(x);
+
+deze hieronder werkt overigens niet, je moet x= ervoor hebben.
+var x = 3
+x+4;
+console.log(x);
+
+je hebt dus geen function nodig, en ook geen while/do/for statements. en het hoeft ook niet allemaal in een codeblock te staan.
+het gaat er gewoon om dat je in volgorde hebt staan een var declaration en daarna een actie. met er tussenin evt. een bewerking.
+
+3) of een if-break ook in een volledig ingevulde for kan.. bij mij loopt ie vast in een infinite loop. (met de 20 weg werkt ie wel)
+var number = 2
+for (counter=0; counter=20; counter++) {
+	console.log(number);
+	number = number +=3;
+	if (counter >= 10)
+		break;
+};
+
+
+-->
+<script>
+
+var x = 3
+x=x+4;
+console.log(x);
+
+var number = 4
+for (counter=0; counter <10; counter++) {
+	console.log(number);
+	number = number +=2;
+};
+
+var number = 2
+for (counter=1; ; counter++) {
+	console.log(number);
+	number = number +=1;
+	if (counter %5 == 0)
+		break;
+};
+
+
+</script>
+</body>
+
+<!--
+var number = 0
+	while (number <= 10) {	// Gelijk na het setten van begingetal de while statement. haakjes! en while is een functie. {}! 
+		console.log(number); // eerst console loggen, daarna pas number+2
+		number = number + 2;	// binnen de while, niet voor de while. initializen heeft geen haakjes nodig, checken ook niet.
+	} // een counter is hier blijkbaar niet nodig (want +2 is te overzien. bij stappen van +2879 zou je counter gebruiken)
+// nu in de vorm van een do statement
+var doNumber = 0; // dit is simpelweg gewoon omgedraaid. de block komt (na do) en vóór de while.
+	do { 
+		console.log(doNumber);
+		doNumber = doNumber + 2;
+	}
+	while (doNumber <= 10)
+	//nu met een counter (want een moeilijker nummer waar je het resultaat niet van kan berekenen. je weet alleen: 5x uitvoeren.)
+var difficultNumber = 1 // 0 kan niet want 0*0*0*0*0 is nog steeds 0
+var counter = 0
+	while (counter <= 5) {
+		console.log(difficultNumber);
+		counter = counter + 1;
+		difficultNumber = difficultNumber * 3;
+	}
+	// dus onthouden: altijd eerst vars definen en initializen (result en evt counter) daarna de acties (met bijv while of for).
+-->
+
+<!--
+EERSTE POGING: (bleek geen functie te hoeven zijn, en de functie werkt niet.)
+<script>
+var evenNumbers = function() {
+	// initialize,check,update
+	var evenNumbers = 0
+	var count = 0
+		while (count < 5);
+		count = count + 1;
+		(evenNumbers = evenNumbers + 2);
+}
+console.log(evenNumbers);
+</script>
+-->
+</html> 

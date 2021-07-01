@@ -1,0 +1,82 @@
+
+// even een mooi voorbeeldje van een for gebruiken. in een functie om de langste van alle arguments die hem zijn gegeven te returnen
+function longestString() {
+  var longest = '';
+  for (var i=0; i < arguments.length; i++) {
+    if (arguments[i].length > longest.length) {
+      longest = arguments[i];
+    }
+  }
+  return longest;
+}
+
+// making a html ordered or unordered list of arguments, die bijv laat zien hoe je een argument kan toevoegen aan een var html heel makkelijk.
+maar vraag me af waar je deze functie dan runt? hoe zorg je dat dit op het scherm komt? je zult ergens in de template/div/p de function
+moeten runnen net als je bijv de array cats moet noemen om hem in een tabel te krijgen (vue tut3)
+function list(type) {
+  var html = '<' + type + 'l><li>';
+  var args = Array.prototype.slice.call(arguments, 1);
+  html += args.join('</li><li>');
+  html += '</li></' + type + 'l>'; // end list 
+  return html; 
+}
+
+extra explanation
+
+i should learn more about lifecycle functions, check that back, 
+and by the way, also .this, and arrow functions.
+
+arrow functions
+// Traditional Function
+function (a){
+  return a + 100;
+}
+// Arrow Function Break Down
+// 1. Remove the word "function" and place arrow between the argument and opening body bracket
+(a) => {
+  return a + 100;
+}
+// 2. Remove the body brackets and word "return" -- the return is implied.
+(a) => a + 100;
+// 3. Remove the argument parentheses (unless you have multiple arguments or none) (a, b) ()
+a => a + 100;
+//4. Likewise, if the body requires additional lines of processing, you'll need to re-introduce brackets PLUS the "return" 
+(arrow functions do not magically guess what or when you want to "return")
+// Traditional Function
+function (a, b){
+  let chuck = 42;
+  return a + b + chuck;
+}
+// Arrow Function
+(a, b) => {
+  let chuck = 42;
+  return a + b + chuck;
+}
+//5. And finally, for named functions we treat arrow expressions like variables
+// Traditional Function
+function bob (a){
+  return a + 100;
+}
+// Arrow Function
+let bob = a => a + 100;
+
+/extra explanation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
